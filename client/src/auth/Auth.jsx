@@ -3,6 +3,7 @@ import CustomInput from "../components/CustomInput";
 import Custombutton from "../components/Custombutton";
 import axios from "axios";
 
+
 const Auth = () => {
   const [Name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -87,9 +88,7 @@ const Auth = () => {
             />
             <Custombutton button={"Login"} onClick={handleLogin} />
           </div>
-          <div className="flex-shrink-0 ml-4">
-            <img src="log.jpg" alt="Login" className="object-cover h-48 w-60" />
-          </div>
+         
           <div>
             <>
               <h3>Email:{data}</h3>
@@ -141,11 +140,7 @@ const Auth = () => {
             <Custombutton button={"Register"} onClick={handleSignUp} />
           </div>
           <div className="flex-shrink-0 ml-4">
-            <img
-              src="signUp.avif"
-              alt="Register"
-              className="object-cover h-72 w-72"
-            />
+            
           </div>
         </div>
       )}
