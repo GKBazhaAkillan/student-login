@@ -10,8 +10,12 @@ const Auth = () => {
   const [address, setAddress] = React.useState("");
   const [district, setDistrict] = React.useState("");
   const [state, setState] = React.useState("");
+  const [userId, setUserId] = React.useState("");
+  const [userData, setUserData] = React.useState("");
   const [show, setShow] = React.useState("login");
   const base_url = "http://localhost:3000";
+
+  const [data, setData] = React.useState([]);
 
   const handleLogin = async () => {
     try {
@@ -19,7 +23,14 @@ const Auth = () => {
         user_email: email,
         user_password: password,
       });
-      console.log(loginResponse, "loginResponse");
+      console.log(loginResponse.data, "loginResponse");
+
+      if (loginResponse.data.message == "success") {
+        const user = await axios.post(`${base_url}/getUserById`, {
+          _id: loginResponse.data.id,
+        });
+        setData(user.data.data.user_email, "user");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -41,75 +52,101 @@ const Auth = () => {
     }
   };
 
+  const UserId = async () => {
+    try {
+      const response = await axios.get(`${base_url}/getUser/${userId}`);
+      setUserData(response.data);
+      console.log(response.data, "User Data");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div class="items-center flex justify-center py-20 flex-col text-2xl bg-amber-600 flex-space-x-4 rounded-md p-4">
-      <div className="flex text-2xl bg-green-800">
-        <button onClick={() => setShow("SignUp")}>SignUp </button>
+    <div className="flex flex-col items-center justify-center p-4 py-20 text-2xl rounded-md bg-amber-600">
+      <div className="flex mb-4 text-2xl bg-green-800">
+        <button onClick={() => setShow("SignUp")}>SignUp</button>
         <button onClick={() => setShow("Login")}>Login</button>
       </div>
       {/* Login */}
-      {show == "Login" && (
-        <div className="text-2xl bg-rose-600">
-          <h1>Login </h1>
-          <CustomInput
-            type="email"
-            value={email}
-            placeholder={"Email"}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <CustomInput
-            type="password"
-            value={password}
-            placeholder={"password"}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          
-
-          <Custombutton button={"Login"} onClick={handleLogin} />
+      {show === "Login" && (
+        <div className="flex flex-col p-4 font-serif rounded-md bg-rose-600">
+          <div className="flex-1">
+            <h1>Login</h1>
+            <CustomInput
+              type="email"
+              value={email}
+              placeholder={" Email"}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <CustomInput
+              type="password"
+              value={password}
+              placeholder={"Password"}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Custombutton button={"Login"} onClick={handleLogin} />
+          </div>
+          <div className="flex-shrink-0 ml-4">
+            <img src="log.jpg" alt="Login" className="object-cover h-48 w-60" />
+          </div>
+          <div>
+            <>
+              <h3>Email:{data}</h3>
+            </>
+          </div>
         </div>
       )}
-
-      {/* {Register} */}
-      {show == "SignUp" && (
-        <div className="bg-orange-400 ">
-          <h2>Register</h2>
-          <CustomInput
-            type="text"
-            value={Name}
-            placeholder={"Enter your Name"}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <CustomInput
-            type="email"
-            value={email}
-            placeholder={"Email"}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <CustomInput
-            type="password"
-            value={password}
-            placeholder={"password"}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <CustomInput
-            type="text"
-            value={address}
-            placeholder={"Enter your Address"}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <CustomInput
-            type="text"
-            value={district}
-            placeholder={"district"}
-            onChange={(e) => setDistrict(e.target.value)}
-          />
-          <CustomInput
-            type="text"
-            value={state}
-            placeholder={"state"}
-            onChange={(e) => setState(e.target.value)}
-          />
-          <Custombutton button={"Register"} onClick={handleSignUp} />
+      {/* Register */}
+      {show === "SignUp" && (
+        <div className="flex flex-row p-4 font-mono bg-orange-400 rounded-md">
+          <div className="flex-1">
+            <h2>Register</h2>
+            <CustomInput
+              type="text"
+              value={Name}
+              placeholder={"Enter your Name"}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <CustomInput
+              type="email"
+              value={email}
+              placeholder={"Enter your Email"}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <CustomInput
+              type="password"
+              value={password}
+              placeholder={"Password"}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <CustomInput
+              type="text"
+              value={address}
+              placeholder={"Enter your Address"}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <CustomInput
+              type="text"
+              value={district}
+              placeholder={"District"}
+              onChange={(e) => setDistrict(e.target.value)}
+            />
+            <CustomInput
+              type="text"
+              value={state}
+              placeholder={"State"}
+              onChange={(e) => setState(e.target.value)}
+            />
+            <Custombutton button={"Register"} onClick={handleSignUp} />
+          </div>
+          <div className="flex-shrink-0 ml-4">
+            <img
+              src="signUp.avif"
+              alt="Register"
+              className="object-cover h-72 w-72"
+            />
+          </div>
         </div>
       )}
     </div>
