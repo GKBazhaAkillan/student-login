@@ -139,9 +139,7 @@ const Auth = () => {
             />
             <Custombutton button={"Register"} onClick={handleSignUp} />
           </div>
-          <div className="flex-shrink-0 ml-4">
-            
-          </div>
+        
         </div>
       )}
     </div>
