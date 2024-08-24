@@ -12,8 +12,6 @@ dotenv.config({ path: path.join(__dirname, ".", ".env") });
 //cors
 app.use(
   cors({ origin: "https://front.akillan.in",
-  methods: ["GET","POST"],
-  allowedHeaders: ["Content-Type"],
 }));
 app.options("*", cors());
 
@@ -26,16 +24,6 @@ connectDatabase();
 
 // Routes
 app.use("/", userRoute);
-// Example routes
-app.get("/createUser", (req, res) => {
-  // Handle GET request for createUser
-  res.json({ message: "User created" });
-});
-
-app.post("/createUser", (req, res) => {
-  // Handle POST request for createUser
-  res.json({ message: "User created" });
-});
 
 app.listen(process.env.PORT, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`)

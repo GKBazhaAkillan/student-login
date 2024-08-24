@@ -14,7 +14,7 @@ const Auth = () => {
   const [userId, setUserId] = React.useState("");
   const [userData, setUserData] = React.useState("");
   const [show, setShow] = React.useState("login");
-  const base_url = "https://server.akillan.in/";
+  const base_url = "https://server.akillan.in";
 
   const [data, setData] = React.useState([]);
 
