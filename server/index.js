@@ -10,7 +10,9 @@ const userRoute = require("./routes/userRoute");
 dotenv.config({ path: path.join(__dirname, ".", ".env") });
 
 //cors
-app.use(cors({ origin: "https://front.akillan.in/" }));
+app.use(cors({ origin: "https://front.akillan.in/",
+  methods:["GET","POST"],
+}));
 app.options("*", cors());
 
 //middleware
