@@ -26,6 +26,16 @@ connectDatabase();
 
 // Routes
 app.use("/", userRoute);
+// Example routes
+app.get("/createUser", (req, res) => {
+  // Handle GET request for createUser
+  res.json({ message: "User created" });
+});
+
+app.post("/createUser", (req, res) => {
+  // Handle POST request for createUser
+  res.json({ message: "User created" });
+});
 
 app.listen(process.env.PORT, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`)
